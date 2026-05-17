@@ -4,7 +4,7 @@ def searchMusic(searchStr):
 
     ListMusic = []
     
-    results = YoutubeSearch(searchStr, max_results=1).to_dict()
+    results = YoutubeSearch(searchStr, max_results=20).to_dict()
 
     for i in range(len(results)):
         

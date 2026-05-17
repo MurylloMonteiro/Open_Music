@@ -1,55 +1,60 @@
+from flask import Flask, request, jsonify
+
+from controllers import HomeController, UserController
 from services import CreateMusicLink, SearchMusic 
 
-from model.UserModel import UserModel
-
-from repository import UserRepository
-
-
-import time
-
-
-from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+#vai ser apagado
+# @app.route("/", methods=["GET"])
+# def home():
+#     return HomeController.Home()
 
-
-@app.route("/", methods=["GET"])
-def home():
-
-   
-    UserRepository.createUser("Ratolongo", "2002-10-02","ratinho@gmail.com","senhadoratoforte")
-
-    time.sleep(2)
-
-    UserRepository.getAllUsers()
-
-    return render_template("index.html")
 
 
 @app.route("/user", methods=["POST"])
 def createUser():
+    return UserController.CreateUser(request.get_json())
 
-    user = UserModel(
-        request.form.get("name"),
-        request.form.get("data"),
-        request.form.get("email"),
-        request.form.get("senha"),
-    )
 
-    print(user.name)
 
-    request.form.get
+@app.route("/user", methods=["PUT"])
+def updatePassword():
+    return UserController.updatePassword(request.get_json())
 
-    return render_template("index.html")
 
-@app.route("/search", methods=["POST"])
-def searchVideo():
 
-    idVideo = SearchMusic.searchMusic(str(request.form.get("nameMusic")))
-    urlVideo  = CreateMusicLink.musicLink(idVideo[0]["id"])
+@app.route("/login", methods=["POST"])
+def loginUser():
+    return UserController.login(request.get_json())
 
-    return render_template('index.html', urlvideo=urlVideo)
+
+
+#Vai existir o metodo de deleção de usuario, mas com uma logica mais robusta, so com o ID e brincadeira
+# @app.route("/user/<int:id>", methods=["DELETE"])
+# def deleteUser(id):
+#     return UserController.deleteUser(id)
+
+
+
+
+@app.route("/search/<string:name>", methods=["GET"])
+def searchVideo(name):
+
+    musics = SearchMusic.searchMusic(str(name))
+    return jsonify({
+        "musics": musics
+    })
+
+@app.route("/play/<string:id>", methods=["GET"])
+def playMusic(id):
+
+    urlVideo  = CreateMusicLink.musicLink(id)
+    return jsonify({
+        "musicId": urlVideo
+    }), 200
+
 
 if __name__ == "__main__":
     app.run(debug=True)

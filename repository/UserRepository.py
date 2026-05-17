@@ -9,9 +9,9 @@ def createUser(nameUser, date, email, password):
 
 def getUser(email):
 
-    WithParamsSQL("CALL get_user(%s)", (email))
+    res = WithParamsSQL("CALL get_user(%s)", (email))
 
-    return None
+    return res[0]
 
 def updateUser(email, password):
 
