@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream de Música</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 50px auto; text-align: center; }
+        .video-container { margin-top: 20px; background: #000; padding: 10px; border-radius: 8px; }
+        input { padding: 10px; width: 60%; }
+        button { padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Buscar Música</h1>
+
+    <!-- O action="/search" deve bater com a sua rota @app.route("/search") -->
+    <form action="/search" method="POST">
+        <input type="text" name="nameMusic" placeholder="Digite o nome da música ou link..." required>
+        <button type="submit">Pesquisar e Assistir</button>
+    </form>
+
+    <hr>
+
+    {# O Flask recarrega a página e entra aqui se urlvideo existir #}
+    {% if urlvideo %}
+        <div class="video-container">
+            <h3>Reproduzindo agora:</h3>
+            
+            {# Se o MusicLink retornar um link direto de stream (yt-dlp), usamos a tag <video> #}
+            {# Se retornar um link de embed do youtube, troque <video> por <iframe> #}
+            <video width="100%" height="auto" controls autoplay>
+                <source src="{{ urlvideo }}" type="video/mp4">
+                Seu navegador não suporta a tag de vídeo.
+            </video>
+        </div>
+    {% else %}
+        <p>Pesquise algo para visualizar o player.</p>
+    {% endif %}
+
+</body>
+</html>
