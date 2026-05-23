@@ -20,7 +20,6 @@ def deleteUser(Response):
     try:
         UserRepository.deleteUser(Response)
         return "User deleted", 200
-        #Verificar qual codigo de sucesso para deleção
     except:
         return "User not deleted", 404
 
