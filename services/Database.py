@@ -16,6 +16,7 @@ def NoneParamsSQL(query):
     cursor  = conn.cursor()
     cursor.execute(query)
     res = cursor.fetchall()
+    conn.commit()
     cursor.close()
     conn.close()
     return res 
@@ -25,8 +26,10 @@ def WithParamsSQL(query, params):
     cursor  = conn.cursor()
     cursor.execute(query, params)
     res = cursor.fetchall()
+    conn.commit()    
     cursor.close()
     conn.close()
+
     return res
 
 

@@ -31,19 +31,23 @@ def loginUser():
 
 
 @app.route("/playlists/<int:id_user>", methods=["GET"])
-def AllPlaylistByUser(id_user):
-    return PlaylistsController.AllPlaylistByUser(id_user)
+def allPlaylistByUser(id_user):
+    return PlaylistsController.allPlaylistByUser(id_user)
 
 
+@app.route("/playlists/musics/<int:id_playlist>", methods=["GET"])
+def allMusicsByPlaylist(id_playlist):
+    return PlaylistsController.allMusicsByPlaylist(id_playlist)
 
+
+@app.route("/playlists/musics", methods=["POST"])
+def addMusicPlaylist():
+    return PlaylistsController.addMusicPlaylist(request.get_json())
 
 
 @app.route("/playlists", methods=["POST"])
 def createPlaylist():
     return  PlaylistsController.createPlaylist(request.get_json())
-
-
-
 
 
 @app.route("/search/<string:name>", methods=["GET"])
