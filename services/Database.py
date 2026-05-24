@@ -6,9 +6,11 @@ def DbConnection():
     load_dotenv()
     conn = pymysql.connect(
         host=getenv("DB_HOST"),
+        port=int(getenv("DB_PORT")),
         user=getenv("DB_USER"),
         password=getenv("DB_PASSWORD"),
-        database=getenv("DB_NAME"))
+        database=getenv("DB_NAME")
+    )
     return conn
 
 def NoneParamsSQL(query):

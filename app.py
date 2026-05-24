@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_jwt_extended import jwt_required, JWTManager
-from controllers import HomeController, PlaylistsController, UserController
+from flask_jwt_extended import JWTManager
+from controllers import PlaylistsController, UserController
 from services import CreateMusicLink, SearchMusic , MailService
 from flask_mail import Mail
 from FlaskConfiguration import Configuration
@@ -23,7 +23,7 @@ mail = Mail(app)
 def createUser():
     return UserController.CreateUser(request.get_json())
 
-@app.route("/login", methods=["POST"])
+@app.route("/auth/login", methods=["POST"])
 def loginUser():
     return UserController.login(request.get_json())
 

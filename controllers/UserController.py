@@ -22,19 +22,6 @@ def recoverPassword(Request):
     except:
         return "Password not updated" , 404
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def deleteUser(Response):
     try:
         UserRepository.deleteUser(Response)
