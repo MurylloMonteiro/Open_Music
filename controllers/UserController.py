@@ -2,6 +2,8 @@ from flask_jwt_extended import jwt_manager, create_access_token,jwt_required,get
 from flask import jsonify
 from repository import UserRepository
 from services import LoginVerification
+from services import MailService
+
 
 def CreateUser(Request):
     try:
@@ -10,12 +12,28 @@ def CreateUser(Request):
     except:        
         return "User not created" , 404
 
-def updatePassword(Request):
-    try: 
-        UserRepository.updateUser(Request["email"], Request["password"])
-        return "Password updated", 201
+def recoverPassword(Request):
+    try:
+        if MailService.verifyCode(Request["email"], Request["recoveryCode"]):
+            UserRepository.updateUser(Request["email"], Request["password"])    
+            return "Password recovery success", 200
+        
+        return "Incorrect code", 400
     except:
         return "Password not updated" , 404
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def deleteUser(Response):
     try:
