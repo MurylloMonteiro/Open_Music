@@ -1,4 +1,4 @@
-from flask_jwt_extended import jwt_manager, create_access_token,jwt_required,get_jwt_identity
+from flask_jwt_extended import create_access_token,jwt_required,get_jwt_identity
 from flask import jsonify
 from repository import UserRepository
 from services import LoginVerification

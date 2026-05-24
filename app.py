@@ -1,53 +1,21 @@
-import os
-from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager, jwt_required
+from flask_jwt_extended import jwt_required, JWTManager
 from controllers import HomeController, PlaylistsController, UserController
 from services import CreateMusicLink, SearchMusic , MailService
 from flask_mail import Mail
+from FlaskConfiguration import Configuration
 
-app = Flask(__name__)
+
+
+app = Configuration(Flask(__name__))
 
 #modificar o CORS esta liberado para qualquer requisição
 CORS(app)
 
-load_dotenv()
 
-
-##!! Criar um aquivo de configuração que vai receber app como parametro fazer configurações e retornar
-##Melhor visualização no app Principal!
-
-
-#JWT
-app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 jwt = JWTManager(app)
-
-#SMTP SERVER
-app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
-app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
-app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS") == "True"
-app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
-app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
-app.config["MAIL_DEFAULT_SENDER"] = os.getenv("MAIL_DEFAULT_SENDER")
 mail = Mail(app)
-
-
-from services import MailService
-
-
-
-
-
-@app.route("/email", methods=["GET"])
-def sendMail():
-    MailService.teste_email(mail)
-
-    return "kk", 200
-
-
-
-
 
 
 

@@ -6,16 +6,13 @@ recoveryUser = [];
 def generateRandomNumber():
     return(random.randrange(111111, 999999, 1))
 
-
 def sendMail(mailObj, request):
 
     Code = generateRandomNumber()
-
     msg = Message(
         subject="Password recovery",
         recipients=[request["email"]]
     )
-
     recoveryUser.append({
         "email": request["email"],
         "recoveryCode": Code
@@ -99,9 +96,6 @@ def sendMail(mailObj, request):
     """
     mailObj.send(msg)
     return {"status": "email enviado"}
-
-
-
 
 def verifyCode(email, UserInputCode):
 
