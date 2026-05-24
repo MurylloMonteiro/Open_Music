@@ -29,7 +29,6 @@ def WithParamsSQL(query, params):
     conn.commit()    
     cursor.close()
     conn.close()
-
     return res
 
 

@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_manager, create_access_token,jwt_required,get_jwt_identity
 from flask import jsonify
 from repository import UserRepository
 from services import LoginVerification
@@ -29,13 +30,15 @@ def login(Response):
     #Isso tem que ser refatorado ta uma nojenteza
     try:
         if LoginVerification.loginVerification(Response["email"], Response["password"]):
+            token = create_access_token(identity=Response['email'])
             #Ta buscando duas vezez no banco isso ta uma nojeira
             res = UserRepository.getUser(Response["email"])
 
             return  jsonify({
                 "id": res[0],
                 "name": res[1],
-                "login": "True"
+                "login": "True",
+                "access_token": token
             }), 200
 
         return "login error", 403
