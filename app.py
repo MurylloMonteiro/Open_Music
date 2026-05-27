@@ -59,6 +59,12 @@ def addMusicPlaylist():
 def createPlaylist():
     return  PlaylistsController.createPlaylist(request.get_json())
 
+@app.route("/playlists", methods=["DELETE"])
+# @jwt_required()
+def deletePlaylist():
+    return PlaylistsController.deletePlaylist(request.get_json())
+
+
 @app.route("/search/<string:name>", methods=["GET"])
 # @jwt_required()
 def searchVideo(name):

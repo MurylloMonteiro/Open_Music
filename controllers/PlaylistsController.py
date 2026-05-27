@@ -9,6 +9,13 @@ def createPlaylist(response):
     except:
         return "Playlist not created", 400
 
+def deletePlaylist(response):
+    try:
+        PlayListRepository.deletePlaylist(response["playlistId"])
+        return "playlist delete", 204
+    except:
+        return "Playlist not deleted", 400
+
 def allPlaylistByUser(id_user):
     try:
         res = PlayListRepository.getAllPlaylistByUser(id_user)

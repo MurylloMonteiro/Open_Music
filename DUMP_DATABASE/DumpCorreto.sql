@@ -1,11 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
--- Host: 192.168.2.112    Database: bancoMusica
+-- Host: localhost    Database: bancoMusica
 -- ------------------------------------------------------
 -- Server version	9.7.0
-CREATE DATABASE IF NOT EXISTS bancoMusica;
-USE bancoMusica;
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,6 +21,8 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '12e5f9d8-507c-11f1-ab02-0242ac11000b:1-114,
+30055ab7-57b4-11f1-be45-0242ac110002:1-53';
 
 --
 -- Table structure for table `history`
@@ -102,7 +101,7 @@ CREATE TABLE `music_in_playlists` (
 
 LOCK TABLES `music_in_playlists` WRITE;
 /*!40000 ALTER TABLE `music_in_playlists` DISABLE KEYS */;
-INSERT INTO `music_in_playlists` VALUES (1,4,5),(2,4,2),(3,4,4),(4,4,4),(5,2,4),(6,1,4),(7,1,2),(8,1,2),(9,6,2),(10,7,7),(11,8,7),(12,9,7),(18,11,5),(21,12,5),(24,10,5),(25,10,4),(26,10,4),(27,10,4),(28,10,4),(29,10,5),(30,10,5),(31,13,5);
+INSERT INTO `music_in_playlists` VALUES (10,7,7),(11,8,7),(12,9,7);
 /*!40000 ALTER TABLE `music_in_playlists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,8 +147,8 @@ CREATE TABLE `playlists` (
   `UpdateAt` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   KEY `fk_playlist_user` (`id_User`),
-  CONSTRAINT `fk_playlist_user` FOREIGN KEY (`id_User`) REFERENCES `users` (`Id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_playlist_user` FOREIGN KEY (`id_User`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +157,7 @@ CREATE TABLE `playlists` (
 
 LOCK TABLES `playlists` WRITE;
 /*!40000 ALTER TABLE `playlists` DISABLE KEYS */;
-INSERT INTO `playlists` VALUES (2,'Treino Pesado',2,'2026-05-15 17:27:16','2026-05-15 17:27:16'),(4,'Hits 2025',4,'2026-05-15 17:27:16','2026-05-15 17:27:16'),(5,'Favoritas',5,'2026-05-15 17:27:16','2026-05-15 17:27:16'),(6,'MinhaPlay',5,'2026-05-16 15:37:39','2026-05-16 15:37:39'),(7,'flaskPlaylsit',2,'2026-05-23 13:15:30','2026-05-23 13:15:30');
+INSERT INTO `playlists` VALUES (6,'MinhaPlay',5,'2026-05-16 15:37:39','2026-05-16 15:37:39'),(7,'flaskPlaylsit',2,'2026-05-23 13:15:30','2026-05-23 13:15:30'),(8,'musicas tops',17,'2026-05-27 02:39:36','2026-05-27 02:39:36');
 /*!40000 ALTER TABLE `playlists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +176,7 @@ CREATE TABLE `users` (
   `Password` varchar(255) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Email` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,13 +185,9 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (2,'Maria Souza','2000-09-21','maria@email.com','123456'),(4,'Ana Costa','2002-03-15','ana@email.com','123456'),(5,'Pedro Alves','1997-07-30','pedro@email.com','123456'),(14,'Ratolongo','2002-10-02','ratinho@gmail.com','senhadoratoforte'),(15,'Ratolongo','2002-12-02','ratinholfask@gmail.com','senhinhanovinha'),(17,'Muryllo Monteiro de lima','2002-12-02','muryllomonteiro209@gmail.com','novissimasenha');
+INSERT INTO `users` VALUES (2,'Maria Souza','2000-09-21','maria@email.com','123456'),(4,'Ana Costa','2002-03-15','ana@email.com','123456'),(5,'Pedro Alves','1997-07-30','pedro@email.com','123456'),(14,'Ratolongo','2002-10-02','ratinho@gmail.com','senhadoratoforte'),(15,'Ratolongo','2002-12-02','ratinholfask@gmail.com','senhinhanovinha'),(17,'Muryllo Monteiro de lima','2002-12-02','muryllomonteiro209@gmail.com','novissimasenha'),(18,'Ratinho pocador','2002-12-02','muryllomonteiro208@gmail.com','senhaantigadoemail'),(19,'joao','2002-12-02','muryll@gmail.com','senhaantigadoemail'),(20,'joao','2002-12-02','muryasdll@gmail.com','$2b$12$5m/90Az6GC/wrF2HnuvPaOeS9RgKj.AS.2RUdD.ccVpJK2FEDDOGO'),(21,'joao','2002-12-02','muryasdll@s.com','$2b$12$C3MszltEbP8WpGJn9MknOesw4XYpHUt.t7YhtURqxZ35w.79RfmQu');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'bancoMusica'
---
 
 --
 -- Dumping routines for database 'bancoMusica'
@@ -401,6 +396,31 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_playlist` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `delete_playlist`(
+    IN p_id_playlist INT
+)
+BEGIN
+    DELETE FROM music_in_playlists
+	WHERE fk_id_playlist = p_id_playlist;
+
+	DELETE FROM playlists
+	WHERE Id = p_id_playlist;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `delete_user` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -478,7 +498,7 @@ CREATE DEFINER=`root`@`%` PROCEDURE `get_all_playlist_by_user`(
 )
 BEGIN 
 
-	SELECT Name FROM playlists WHERE id_User = p_id_user;
+	SELECT id, Name FROM playlists WHERE id_User = p_id_user;
 
 END ;;
 DELIMITER ;
@@ -553,4 +573,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-24 19:05:06
+-- Dump completed on 2026-05-27 16:18:43
