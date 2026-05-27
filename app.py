@@ -17,8 +17,6 @@ CORS(app)
 jwt = JWTManager(app)
 mail = Mail(app)
 
-
-
 @app.route("/user", methods=["POST"])
 def createUser():
     return UserController.CreateUser(request.get_json())
