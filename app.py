@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
-from controllers import PlaylistsController, UserController
+from controllers import PlaylistsController, UserController , likeMusicsController
 from services import CreateMusicLink, SearchMusic , MailService
 from flask_mail import Mail
 from FlaskConfiguration import Configuration
@@ -63,6 +63,25 @@ def createPlaylist():
 # @jwt_required()
 def deletePlaylist():
     return PlaylistsController.deletePlaylist(request.get_json())
+
+
+@app.route("/likemusic", methods=["POST"])
+# @jwt_required()
+def createLikeMusic():
+    return likeMusicsController.createLikeMusic(request.get_json())
+
+
+@app.route("/likemusic", methods=["DELETE"])
+# @jwt_required()
+def deleteLikeMusic():
+    return likeMusicsController.deleteLikeMusic(request.get_json())
+
+
+@app.route("/likemusic/<int:id>", methods=["GET"])
+# @jwt_required()
+def getAllLikeMusicsbyUser(id):
+    return likeMusicsController.getAllLikeMusicsByUser(id)
+
 
 
 @app.route("/search/<string:name>", methods=["GET"])
