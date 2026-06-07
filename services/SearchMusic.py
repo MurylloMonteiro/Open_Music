@@ -1,21 +1,14 @@
 from youtube_search import YoutubeSearch
+from flask import jsonify
 
-def searchMusic(searchStr):
+def searchMusic(searchStr, requestMusicsQuantity):
+    try:
+        if int(requestMusicsQuantity) > 30:
+            return "Ta achando que e bagunça, é Ai dento", 200
 
-    ListMusic = []
+
+        results = YoutubeSearch(searchStr, max_results=int(requestMusicsQuantity)).to_dict()
+        return jsonify(results), 200
     
-    results = YoutubeSearch(searchStr, max_results=20).to_dict()
-
-    for i in range(len(results)):
-        
-        ListMusic.append({
-            "id": results[i]["id"],
-            "thumbnails": results[i]["thumbnails"],
-            "channel": results[i]["channel"],
-            "views": results[i]["views"],
-            "name": results[i]["title"],
-            "duration": results[i]["duration"],
-            "publish_time": results[i]["publish_time"]
-        })
-        
-    return ListMusic
+    except Exception as err:
+        return jsonify(str(err)), 400

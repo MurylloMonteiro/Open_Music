@@ -64,31 +64,25 @@ def createPlaylist():
 def deletePlaylist():
     return PlaylistsController.deletePlaylist(request.get_json())
 
-
 @app.route("/likemusic", methods=["POST"])
 # @jwt_required()
 def createLikeMusic():
     return likeMusicsController.createLikeMusic(request.get_json())
-
 
 @app.route("/likemusic", methods=["DELETE"])
 # @jwt_required()
 def deleteLikeMusic():
     return likeMusicsController.deleteLikeMusic(request.get_json())
 
-
 @app.route("/likemusic/<int:id>", methods=["GET"])
 # @jwt_required()
 def getAllLikeMusicsbyUser(id):
     return likeMusicsController.getAllLikeMusicsByUser(id)
 
-
-
 @app.route("/search/<string:name>", methods=["GET"])
 # @jwt_required()
 def searchVideo(name):
-    musics = SearchMusic.searchMusic(str(name))
-    return jsonify({"musics": musics})
+    return SearchMusic.searchMusic(str(name), request.args["qtd"])
 
 @app.route("/play/<string:id>", methods=["GET"])
 # @jwt_required()
