@@ -13,7 +13,6 @@ app = Configuration(Flask(__name__))
 #modificar o CORS esta liberado para qualquer requisição
 CORS(app)
 
-
 jwt = JWTManager(app)
 mail = Mail(app)
 
