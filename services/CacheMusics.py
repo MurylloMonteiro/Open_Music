@@ -3,32 +3,21 @@
 # que utiliza HahsMap por tras.
 
 #O problema dessa minha implementação e que qunado o app e desligado todo o cache e perdito, e fazendo utilização do redis posso modificar o tempo de exclução do cache.
+#Segundo problema se modificar um caracter da pesquisa não busca o cache ja existente
 
-
-
-HashTableMusic = {
-    "Pedro": "gay",
-    "Joao": "chupeta",
-    "antonio": "viado",
-    "paulo": "arrombado"
-}
+HashTableMusic = {}
 
 def get(search):
     
     return HashTableMusic.get(search)
 
-
-
 def put(cacheKey, value):
     
     HashTableMusic[cacheKey] = value
     return True
-    
-
 
 def delete():
     None
-
 
 def exist(Key):
     return get(Key)
