@@ -1,33 +1,39 @@
-synonyms = {
-    "novidades" : "new_song",
-    "novos" : "new_song",
-    "novo" : "new_song" ,
-    "lancamento" : "new_song" ,
-    "lancamentos" : "new_song" ,
-    "ultimos" : "new_song" ,
-    "recente"  : "new_song" ,
+from unidecode import unidecode
 
-    "top" :      "popular_song", 
-    "top rits" : "popular_song",
-    "popular" : "popular_song",
-    "populares" : "popular_song",
-    "hits" : "popular_song",
-    "hit" : "popular_song",
-    "melhor" :   "popular_song",
-    "melhores" : "popular_song",
-    "tocada" : "popular_song",
-    "tocado" : "popular_song",
-    "tocadas" : "popular_song",
-    "tocados" : "popular_song",
-    "todos" : "popular_song",
-    "todas" : "popular_song",
-    "todo" : "popular_song",
-    "toda" : "popular_song",
-    "mais ouvidas" : "popular_song",
-    "topada" :   "popular_song",
-    "ouvidos" :   "popular_song",
-    "sucesso" :   "popular_song",
-    "sucessos" :   "popular_song",
+# Search Intent simplesmente padroniza a busca exemplo {Melhores musicas do manoel gomes official} depois do search intent {musicas populares manoel gomes} 
+# Fazendo isso ele aumenta a chance de aproveitamento de cache.
+
+
+synonyms = {
+    "novidades" : "novas musicas",
+    "novos" : "novas musicas",
+    "novo" : "novas musicas" ,
+    "lancamento" : "novas musicas" ,
+    "lancamentos" : "novas musicas" ,
+    "ultimos" : "novas musicas" ,
+    "recente"  : "novas musicas" ,
+
+    "top" :      "musicas populares", 
+    "top rits" : "musicas populares",
+    "popular" : "musicas populares",
+    "populares" : "musicas populares",
+    "hits" : "musicas populares",
+    "hit" : "musicas populares",
+    "melhor" :   "musicas populares",
+    "melhores" : "musicas populares",
+    "tocada" : "musicas populares",
+    "tocado" : "musicas populares",
+    "tocadas" : "musicas populares",
+    "tocados" : "musicas populares",
+    "todos" : "musicas populares",
+    "todas" : "musicas populares",
+    "todo" : "musicas populares",
+    "toda" : "musicas populares",
+    "mais ouvidas" : "musicas populares",
+    "topada" :   "musicas populares",
+    "ouvidos" :   "musicas populares",
+    "sucesso" :   "musicas populares",
+    "sucessos" :   "musicas populares",
 
     "album" : "album",
     "discos" : "album",
@@ -58,21 +64,27 @@ synonyms = {
     "muitas" : "",
     "muita" : "",
     "para" : "",
+    "official" : "",
 
 
-    # #Generos musicais
-    # "sertanejos"
-    # "sertanejo"
-    # "funks"
-    # "funk"
-    # "pop"
-    # "mpb"
-    # "regaee"
-    # "bossa nova",
-    # "hip hop"
-    # "trap"
-    # "rap"
-    # "gospel"
+    #Generos musicais
+    "sertanejos" : "sertanejo",
+    "sertanejo" : "sertanejo",
+    "funks" : "funk",
+    "funk" : "funk",
+    "pops" : "pop",
+    "pop" : "pop",
+    "mpbs"  : "mpb",
+    "mpb"  : "mpb",
+    "regaees" : "regaee",
+    "regaee" : "regaee",
+    "hip hops" : "hip hop",
+    "hip hop" : "hip hop",
+    "traps" : "trap",
+    "trap" : "trap", 
+    "raps" : "rap",
+    "rap" : "rap",
+    "gospel" : "gospels",
 }
 
 
@@ -84,9 +96,7 @@ def _normalizeString(normalizeStr):
     return normalizeStr.split( )
 
 
-
 def _verifySynonyms(search):
-
 
     def removeArrayDuplicates(array):
         result = []
@@ -106,7 +116,6 @@ def _verifySynonyms(search):
             priority.append(synonyms.get(search[i]))
         else :
             last_word.append(search[i])
-
     
     priority = removeArrayDuplicates(priority)
 
@@ -114,7 +123,6 @@ def _verifySynonyms(search):
     search = search.split()
 
     return " ".join(search)
-
 
 def createIntentSearch(search):
     search = _normalizeString(search) 

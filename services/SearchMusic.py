@@ -1,11 +1,10 @@
-from services import CacheMusics
-
+from services import CacheMusics, SearchIntent
 from youtube_search import YoutubeSearch
 from flask import jsonify
 
 def youtubeSearch(searchStr, requestMusicsQuantity):
     result = YoutubeSearch(searchStr, max_results=int(requestMusicsQuantity)).to_dict()
-    CacheMusics.put(cacheKey=searchStr, value=result)
+    CacheMusics.put(cacheKey=SearchIntent.createIntentSearch(searchStr), value=result)
     return result
 
 def searchMusic(searchStr, requestMusicsQuantity):
@@ -14,7 +13,7 @@ def searchMusic(searchStr, requestMusicsQuantity):
             return "Ta achando que e bagunça e,  Ai dento!", 200
         
         if CacheMusics.exist(searchStr) != None:
-            Cache = CacheMusics.get(searchStr)
+            Cache = CacheMusics.get(SearchIntent.createIntentSearch(searchStr))
             if int(requestMusicsQuantity) > int(len(Cache)):
                 return youtubeSearch(searchStr, requestMusicsQuantity)
             return Cache, 200

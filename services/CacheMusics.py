@@ -8,11 +8,10 @@
 HashTableMusic = {}
 
 def get(search):
-    
     return HashTableMusic.get(search)
 
-def put(cacheKey, value):
     
+def put(cacheKey, value):
     HashTableMusic[cacheKey] = value
     return True
 
