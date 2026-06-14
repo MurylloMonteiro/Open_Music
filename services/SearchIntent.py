@@ -92,9 +92,7 @@ synonyms = {
 def _normalizeString(normalizeStr):
     normalizeStr = unidecode(normalizeStr)
     normalizeStr = normalizeStr.lower()
-
     return normalizeStr.split( )
-
 
 def _verifySynonyms(search):
 

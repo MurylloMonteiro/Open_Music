@@ -8,6 +8,8 @@
 HashTableMusic = {}
 
 def get(search):
+    print(search)
+    print(HashTableMusic)
     return HashTableMusic.get(search)
 
     

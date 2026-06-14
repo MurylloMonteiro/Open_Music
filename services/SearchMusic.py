@@ -12,7 +12,7 @@ def searchMusic(searchStr, requestMusicsQuantity):
         if int(requestMusicsQuantity) > 30 or int(requestMusicsQuantity) <= 0:
             return "Ta achando que e bagunça e,  Ai dento!", 200
         
-        if CacheMusics.exist(searchStr) != None:
+        if CacheMusics.exist(SearchIntent.createIntentSearch(searchStr)) != None:
             Cache = CacheMusics.get(SearchIntent.createIntentSearch(searchStr))
             if int(requestMusicsQuantity) > int(len(Cache)):
                 return youtubeSearch(searchStr, requestMusicsQuantity)
